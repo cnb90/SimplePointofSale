@@ -1,0 +1,30 @@
+﻿@model IEnumerable<SimplePointofSale.ViewModels.InvoiceDateGroup>
+
+@{
+    ViewBag.Title = "Invoice Statistics";
+}
+
+<h2>Invoice Statistics</h2>
+
+<table>
+    <tr>
+        <th>
+            Invoice Date
+        </th>
+        <th>
+            Invoices
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.InvoiceDate)
+            </td>
+            <td>
+                @item.InvoiceCount
+            </td>
+        </tr>
+    }
+</table>

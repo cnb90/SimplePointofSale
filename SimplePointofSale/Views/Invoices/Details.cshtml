@@ -1,0 +1,138 @@
+﻿@model SimplePointofSale.Models.Invoice
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Company Name</h2>
+<address>
+    Company Address<br />
+    City, State ZIP<br />
+    Phone Number
+</address>
+
+<div>
+    <h4>Invoice</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Bill To
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Customer.FullName)
+        </dd>
+        <dd>
+            @Html.DisplayFor(model => model.Customer.Email)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.InvoiceDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.InvoiceDate)
+        </dd>
+        @*<dt>
+            @Html.DisplayNameFor(model => model.InvoiceLines)
+        </dt>*@
+        <dd>
+        @{
+            decimal subTotal = 0.00m;
+            foreach (var item in Model.InvoiceLines)
+            {
+                subTotal = subTotal + item.LineTotal;
+            }
+            decimal taxTotal = 0.06m * subTotal;
+            decimal finalTotal = 1.06m * subTotal;
+        }
+            <table class="table">
+                <tr>
+                    <th>Brand</th>
+                    <th>Name</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                    <th>Discount</th>
+                    <th>Total Price</th>
+                </tr>
+                
+                @foreach (var item in Model.InvoiceLines)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Product.Brand)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Product.ProductName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.PriceAtSale)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Quantity)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Discount)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.LineTotal)
+                        </td>
+                    </tr>
+                }
+                <tr id="invoice_total">
+                    <td>
+                    </td>
+                </tr>
+                <tr id="invoice_total">
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <th>
+                        Subtotal:
+                    </th>
+                    <td>
+                        @subTotal.ToString("C2")
+                    </td>
+                </tr>
+                <tr id="invoice_total">
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <th>
+                        Tax (PA):
+                    </th>
+                    <td>
+                        @taxTotal.ToString("C2")
+                    </td>
+                </tr>
+                <tr id="invoice_total">
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <th>
+                        Total:
+                    </th>
+                    <td>
+                        @finalTotal.ToString("C2")
+                    </td>
+                </tr>
+            </table>
+        </dd>
+    </dl>
+
+</div>
+<p><a class="btn btn-primary no-print" onclick="myPrint()">Print This Invoice &raquo;</a></p>
+
+<script>
+function myPrint() {
+    window.print();
+}
+</script>
+
+<p class="no-print">
+    @Html.ActionLink("Edit", "Edit", new { id = Model.InvoiceID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

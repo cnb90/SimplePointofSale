@@ -1,0 +1,28 @@
+﻿@model SimplePointofSale.Models.InvoiceLine
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+@Html.HiddenFor(modelItem => Model.InvoiceLineID)
+<tr>
+    <td>
+        @Html.EditorFor(modelItem => Model.ProductID)
+    </td>
+</tr>
+<tr>
+    <td>
+        @Html.EditorFor(modelItem => Model.PriceAtSale)
+    </td>
+</tr>
+<tr>
+    <td>
+        @Html.EditorFor(modelItem => Model.Quantity)
+    </td>
+</tr>
+<tr>
+    <td>
+        @Html.EditorFor(modelItem => Model.Discount)
+    </td>
+</tr>
