@@ -44,7 +44,7 @@
                 subTotal = subTotal + item.LineTotal;
             }
             decimal taxTotal = 0.06m * subTotal;
-            decimal finalTotal = 1.06m * subTotal;
+            decimal finalTotal = taxTotal + subTotal;
         }
             <table class="table">
                 <tr>

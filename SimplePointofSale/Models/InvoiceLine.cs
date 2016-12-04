@@ -21,7 +21,7 @@ namespace SimplePointofSale.Models
         [DataType(DataType.Currency)]
         [Column(TypeName = "money")]
         [DisplayName("Total Price")]
-        public decimal LineTotal { get { return PriceAtSale * (1 - Discount) * Quantity; } }
+        public decimal LineTotal { get { return PriceAtSale * (100m - Discount) / 100m * Quantity; } }
 
         public virtual Invoice Invoice { get; set; }
         public virtual Product Product { get; set; }

@@ -122,14 +122,8 @@ namespace SimplePointofSale.Views
             {
                 return HttpNotFound();
             }
-            var invoiceWithLines = from s in db.Invoices.Include("InvoiceLines")
-                                   where s.InvoiceID == id
-                                   select s;
-            ViewData.Model = invoiceWithLines;
 
             ViewBag.CustomerID = new SelectList(db.Customers, "CustomerID", "FullName", invoice.CustomerID);
-            ViewBag.InvoiceID = new SelectList(db.Invoices, "InvoiceID", "InvoiceID");
-            ViewBag.ProductID = new SelectList(db.Products, "ProductID", "ProductFullName");
             return View(invoice);
         }
 
