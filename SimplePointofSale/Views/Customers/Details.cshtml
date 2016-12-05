@@ -41,6 +41,7 @@
                 <tr>
                     <th>Invoice Number</th>
                     <th>Date</th>
+                    <th></th>
                 </tr>
                 @foreach (var item in Model.Invoices)
                 {
@@ -50,6 +51,9 @@
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.InvoiceDate)
+                        </td>
+                        <td>
+                            @Html.ActionLink("Details", "Details", "Invoices", new { id = item.InvoiceID }, new { @class = "btn btn-success btn-xs" })
                         </td>
                     </tr>
                 }

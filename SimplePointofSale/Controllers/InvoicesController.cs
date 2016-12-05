@@ -157,7 +157,6 @@ namespace SimplePointofSale.Views
             {
                 return HttpNotFound();
             }
-
             ViewBag.CustomerID = new SelectList(db.Customers, "CustomerID", "FullName", invoice.CustomerID);
             return View(invoice);
         }
@@ -213,6 +212,7 @@ namespace SimplePointofSale.Views
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             InvoiceLine invoiceLine = db.InvoiceLines.Find(id);
+            ViewBag.InvoiceID = invoiceLine.InvoiceID;
             if (invoiceLine == null)
             {
                 return HttpNotFound();
