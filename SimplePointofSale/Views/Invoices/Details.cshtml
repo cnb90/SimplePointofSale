@@ -33,9 +33,6 @@
         <dd>
             @Html.DisplayFor(model => model.InvoiceDate)
         </dd>
-        @*<dt>
-            @Html.DisplayNameFor(model => model.InvoiceLines)
-        </dt>*@
         <dd>
         @{
             decimal subTotal = 0.00m;
@@ -52,8 +49,8 @@
                     <th>Name</th>
                     <th>Price</th>
                     <th>Quantity</th>
-                    <th>Discount</th>
                     <th>Total Price</th>
+                    <th></th>
                 </tr>
                 
                 @foreach (var item in Model.InvoiceLines)
@@ -72,19 +69,28 @@
                             @Html.DisplayFor(modelItem => item.Quantity)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.Discount)
-                        </td>
-                        <td>
                             @Html.DisplayFor(modelItem => item.LineTotal)
+                        </td>
+                        <td class="no-print">
+                            @Html.ActionLink("Delete", "DeleteInvoiceLine", new { id = item.InvoiceLineID })
                         </td>
                     </tr>
                 }
+                <tr class="no-print">
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>
+                        @Html.ActionLink("Add Line", "CreateInvoiceLine", new { invoiceID = Model.InvoiceID })
+                    </td>
+                    <td></td>
+                </tr>
                 <tr id="invoice_total">
                     <td>
                     </td>
                 </tr>
                 <tr id="invoice_total">
-                    <td></td>
                     <td></td>
                     <td></td>
                     <td></td>
@@ -94,9 +100,9 @@
                     <td>
                         @subTotal.ToString("C2")
                     </td>
+                    <td></td>
                 </tr>
                 <tr id="invoice_total">
-                    <td></td>
                     <td></td>
                     <td></td>
                     <td></td>
@@ -106,9 +112,9 @@
                     <td>
                         @taxTotal.ToString("C2")
                     </td>
+                    <td></td>
                 </tr>
                 <tr id="invoice_total">
-                    <td></td>
                     <td></td>
                     <td></td>
                     <td></td>
@@ -118,6 +124,7 @@
                     <td>
                         @finalTotal.ToString("C2")
                     </td>
+                    <td></td>
                 </tr>
             </table>
         </dd>

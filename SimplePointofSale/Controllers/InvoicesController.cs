@@ -110,6 +110,41 @@ namespace SimplePointofSale.Views
             return View(invoice);
         }
 
+        // GET: InvoiceLines/Create
+        public ActionResult CreateInvoiceLine(String invoiceID)
+        {
+            var InvoiceID = Request["invoiceID"];
+            if (InvoiceID == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Invoice invoice = db.Invoices.Find(Convert.ToInt32(InvoiceID));
+            if (invoice == null)
+            {
+                return HttpNotFound();
+            }
+            ViewBag.InvoiceID = Convert.ToInt32(InvoiceID);
+            ViewBag.ProductID = new SelectList(db.Products, "ProductID", "ProductFullName");
+            return View();
+        }
+
+        // POST: InvoiceLines/Create
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult CreateInvoiceLine([Bind(Include = "InvoiceLineID,InvoiceID,ProductID,Quantity,PriceAtSale")] InvoiceLine invoiceLine)
+        {
+            if (ModelState.IsValid)
+            {
+                db.InvoiceLines.Add(invoiceLine);
+                db.SaveChanges();
+                return RedirectToAction("Details", new { id = invoiceLine.InvoiceID });
+            }
+            ViewBag.ProductID = new SelectList(db.Products, "ProductID", "ProductFullName", invoiceLine.ProductID);
+            return View(invoiceLine);
+        }
+
         // GET: Invoices/Edit/5
         public ActionResult Edit(int? id)
         {
@@ -168,6 +203,33 @@ namespace SimplePointofSale.Views
             db.Invoices.Remove(invoice);
             db.SaveChanges();
             return RedirectToAction("Index");
+        }
+
+        // GET: Invoices/DeleteInvoiceLine/5
+        public ActionResult DeleteInvoiceLine(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            InvoiceLine invoiceLine = db.InvoiceLines.Find(id);
+            if (invoiceLine == null)
+            {
+                return HttpNotFound();
+            }
+            return View(invoiceLine);
+        }
+
+        // POST: Invoices/DeleteInvoiceLine/5
+        [HttpPost, ActionName("DeleteInvoiceLine")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteInvoiceLineConfirmed(int id)
+        {
+            InvoiceLine invoiceLine = db.InvoiceLines.Find(id);
+            var returnID = invoiceLine.InvoiceID;
+            db.InvoiceLines.Remove(invoiceLine);
+            db.SaveChanges();
+            return RedirectToAction("Details", new { id = returnID });
         }
 
         protected override void Dispose(bool disposing)

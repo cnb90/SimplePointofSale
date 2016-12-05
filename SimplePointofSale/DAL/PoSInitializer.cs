@@ -58,14 +58,14 @@ namespace SimplePointofSale.DAL
 
             var lines = new List<InvoiceLine>
             {
-                new InvoiceLine {InvoiceID=1,ProductID=1,Quantity=1,Discount=0,PriceAtSale=199.99m},
-                new InvoiceLine {InvoiceID=5,ProductID=2,Quantity=1,Discount=0,PriceAtSale=89.99m},
-                new InvoiceLine {InvoiceID=2,ProductID=1,Quantity=1,Discount=0,PriceAtSale=199.99m},
-                new InvoiceLine {InvoiceID=3,ProductID=4,Quantity=1,Discount=0,PriceAtSale=2999.99m},
-                new InvoiceLine {InvoiceID=4,ProductID=1,Quantity=1,Discount=0,PriceAtSale=199.99m},
-                new InvoiceLine {InvoiceID=1,ProductID=3,Quantity=1,Discount=0,PriceAtSale=19.99m},
-                new InvoiceLine {InvoiceID=1,ProductID=4,Quantity=1,Discount=0,PriceAtSale=1999.99m},
-                new InvoiceLine {InvoiceID=1,ProductID=5,Quantity=1,Discount=0,PriceAtSale=9.99m}
+                new InvoiceLine {InvoiceID=1,ProductID=1,Quantity=1,PriceAtSale=199.99m},
+                new InvoiceLine {InvoiceID=5,ProductID=2,Quantity=1,PriceAtSale=89.99m},
+                new InvoiceLine {InvoiceID=2,ProductID=1,Quantity=1,PriceAtSale=199.99m},
+                new InvoiceLine {InvoiceID=3,ProductID=4,Quantity=1,PriceAtSale=2999.99m},
+                new InvoiceLine {InvoiceID=4,ProductID=1,Quantity=1,PriceAtSale=199.99m},
+                new InvoiceLine {InvoiceID=1,ProductID=3,Quantity=1,PriceAtSale=19.99m},
+                new InvoiceLine {InvoiceID=1,ProductID=4,Quantity=1,PriceAtSale=1999.99m},
+                new InvoiceLine {InvoiceID=1,ProductID=5,Quantity=1,PriceAtSale=9.99m}
             };
 
             lines.ForEach(s => context.InvoiceLines.Add(s));

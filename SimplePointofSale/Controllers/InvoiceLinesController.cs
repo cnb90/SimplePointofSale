@@ -46,7 +46,7 @@ namespace SimplePointofSale.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "InvoiceLineID,InvoiceID,ProductID,Quantity,Discount,PriceAtSale")] InvoiceLine invoiceLine)
+        public ActionResult Create([Bind(Include = "InvoiceLineID,InvoiceID,ProductID,Quantity,PriceAtSale")] InvoiceLine invoiceLine)
         {
             if (ModelState.IsValid)
             {
@@ -82,7 +82,7 @@ namespace SimplePointofSale.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "InvoiceLineID,InvoiceID,ProductID,Quantity,Discount,PriceAtSale")] InvoiceLine invoiceLine)
+        public ActionResult Edit([Bind(Include = "InvoiceLineID,InvoiceID,ProductID,Quantity,PriceAtSale")] InvoiceLine invoiceLine)
         {
             if (ModelState.IsValid)
             {

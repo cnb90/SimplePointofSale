@@ -247,6 +247,8 @@
     <Content Include="Views\InvoiceLines\Edit.cshtml" />
     <Content Include="Views\InvoiceLines\Index.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\InvoiceLines.cshtml" />
+    <Content Include="Views\Invoices\CreateInvoiceLine.cshtml" />
+    <Content Include="Views\Invoices\DeleteInvoiceLine.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
