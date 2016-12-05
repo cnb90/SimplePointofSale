@@ -72,18 +72,16 @@
                             @Html.DisplayFor(modelItem => item.LineTotal)
                         </td>
                         <td class="no-print">
-                            @Html.ActionLink("Delete", "DeleteInvoiceLine", new { id = item.InvoiceLineID })
+                            @Html.ActionLink("Delete", "DeleteInvoiceLine", new { id = item.InvoiceLineID }, new { @class = "btn btn-danger btn-xs" })
                         </td>
                     </tr>
                 }
                 <tr class="no-print">
+                    <td>@Html.ActionLink("Add Line", "CreateInvoiceLine", new { invoiceID = Model.InvoiceID }, new { @class = "btn btn-success btn-xs" })</td>
                     <td></td>
                     <td></td>
                     <td></td>
                     <td></td>
-                    <td>
-                        @Html.ActionLink("Add Line", "CreateInvoiceLine", new { invoiceID = Model.InvoiceID })
-                    </td>
                     <td></td>
                 </tr>
                 <tr id="invoice_total">
@@ -131,7 +129,11 @@
     </dl>
 
 </div>
-<p><a class="btn btn-primary no-print" onclick="myPrint()">Print This Invoice &raquo;</a></p>
+<p class="no-print">
+    @Html.ActionLink("Edit Details", "Edit", new { id = Model.InvoiceID }, new { @class = "btn btn-default" })
+    <a class="btn btn-primary" onclick="myPrint()">Print Invoice</a>
+    @Html.ActionLink("Save and Close", "Index", null, new { @class = "btn btn-primary" })
+</p>
 
 <script>
 function myPrint() {
@@ -139,7 +141,4 @@ function myPrint() {
 }
 </script>
 
-<p class="no-print">
-    @Html.ActionLink("Edit", "Edit", new { id = Model.InvoiceID }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+
