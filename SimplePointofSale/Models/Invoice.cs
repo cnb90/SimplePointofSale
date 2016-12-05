@@ -12,7 +12,7 @@ namespace SimplePointofSale.Models
         [DisplayName("Customer ID")]
         public int CustomerID { get; set; }
         [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:MM-dd-yyyy}", ApplyFormatInEditMode = true)]
+        [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}", ApplyFormatInEditMode = true)]
         [Display(Name = "Invoice Date")]
         public DateTime InvoiceDate { get; set; }
 

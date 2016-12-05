@@ -42,7 +42,14 @@
 }
 
 <div>
-    @Html.ActionLink("Cancel", "Details", new { id = Model.InvoiceID }, new { @class = "btn btn-warning" })
+    @if (ViewBag.referrer != null)
+    {
+        @Html.ActionLink("Cancel", "Details", "Invoices", new { id = ViewBag.referrer }, new { @class = "btn btn-warning" })
+    }
+    else
+    {
+        @Html.ActionLink("Cancel", "Index", null, new { @class = "btn btn-warning" })
+    }
 </div>
 
 @section Scripts {
