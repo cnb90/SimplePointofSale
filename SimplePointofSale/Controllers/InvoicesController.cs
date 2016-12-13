@@ -65,13 +65,13 @@ namespace SimplePointofSale.Views
                     invoices = invoices.OrderByDescending(s => s.InvoiceDate);
                     break;
             }
-            int pageSize = 5;
+            int pageSize = 10;
             int pageNumber = (page ?? 1);
             return View(invoices.ToPagedList(pageNumber, pageSize));
         }
 
         // GET: Invoices/Details/5
-        public ActionResult Details(int? id)
+        public ActionResult Details(String referrer, int? id)
         {
             if (id == null)
             {
@@ -82,6 +82,7 @@ namespace SimplePointofSale.Views
             {
                 return HttpNotFound();
             }
+            ViewBag.referrer = referrer;
             return View(invoice);
         }
 
@@ -146,7 +147,7 @@ namespace SimplePointofSale.Views
         }
 
         // GET: Invoices/Edit/5
-        public ActionResult Edit(int? id)
+        public ActionResult Edit(String referrer, int? id)
         {
             if (id == null)
             {
@@ -157,6 +158,7 @@ namespace SimplePointofSale.Views
             {
                 return HttpNotFound();
             }
+            ViewBag.referrer = referrer;
             ViewBag.CustomerID = new SelectList(db.Customers, "CustomerID", "FullName", invoice.CustomerID);
             return View(invoice);
         }
@@ -172,7 +174,7 @@ namespace SimplePointofSale.Views
             {
                 db.Entry(invoice).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Details", new { id = invoice.InvoiceID });
             }
             ViewBag.CustomerID = new SelectList(db.Customers, "CustomerID", "FullName", invoice.CustomerID);
             return View(invoice);

@@ -130,9 +130,13 @@
 
 </div>
 <p class="no-print">
-    @Html.ActionLink("Edit Details", "Edit", new { id = Model.InvoiceID }, new { @class = "btn btn-default" })
+    @Html.ActionLink("Edit Details", "Edit", new { id = Model.InvoiceID, referrer = Model.InvoiceID }, new { @class = "btn btn-default" })
     <a class="btn btn-primary" onclick="myPrint()">Print Invoice</a>
     @Html.ActionLink("Save and Close", "Index", null, new { @class = "btn btn-primary" })
+    @if (ViewBag.referrer != null)
+    {
+        @Html.ActionLink("Back to Customer", "Details", "Customers", new { id = ViewBag.referrer }, new { @class = "btn btn-default" })
+    }
 </p>
 
 <script>

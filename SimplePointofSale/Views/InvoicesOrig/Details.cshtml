@@ -1,0 +1,151 @@
+﻿@model SimplePointofSale.Models.Invoice
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Company Name</h2>
+<address>
+    Company Address<br />
+    City, State ZIP<br />
+    Phone Number
+</address>
+
+<div>
+    <h4>Invoice</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Bill To
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Customer.FullName)
+        </dd>
+        <dd>
+            @Html.DisplayFor(model => model.Customer.Email)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.InvoiceDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.InvoiceDate)
+        </dd>
+        <dd>
+        @{
+            decimal subTotal = 0.00m;
+            foreach (var item in Model.InvoiceLines)
+            {
+                subTotal = subTotal + item.LineTotal;
+            }
+            decimal taxTotal = 0.06m * subTotal;
+            decimal finalTotal = taxTotal + subTotal;
+        }
+            <table class="table">
+                <tr>
+                    <th>Brand</th>
+                    <th>Name</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                    <th>Total Price</th>
+                    <th></th>
+                </tr>
+                
+                @foreach (var item in Model.InvoiceLines)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Product.Brand)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Product.ProductName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.PriceAtSale)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Quantity)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.LineTotal)
+                        </td>
+                        <td class="no-print">
+                            @Html.ActionLink("Delete", "DeleteInvoiceLine", new { id = item.InvoiceLineID }, new { @class = "btn btn-danger btn-xs" })
+                        </td>
+                    </tr>
+                }
+                <tr class="no-print">
+                    <td>@Html.ActionLink("Add Line", "CreateInvoiceLine", new { invoiceID = Model.InvoiceID }, new { @class = "btn btn-success btn-xs" })</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr id="invoice_total">
+                    <td>
+                    </td>
+                </tr>
+                <tr id="invoice_total">
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <th>
+                        Subtotal:
+                    </th>
+                    <td>
+                        @subTotal.ToString("C2")
+                    </td>
+                    <td></td>
+                </tr>
+                <tr id="invoice_total">
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <th>
+                        Tax (PA):
+                    </th>
+                    <td>
+                        @taxTotal.ToString("C2")
+                    </td>
+                    <td></td>
+                </tr>
+                <tr id="invoice_total">
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <th>
+                        Total:
+                    </th>
+                    <td>
+                        @finalTotal.ToString("C2")
+                    </td>
+                    <td></td>
+                </tr>
+            </table>
+        </dd>
+    </dl>
+
+</div>
+<p class="no-print">
+    @Html.ActionLink("Edit Details", "Edit", new { id = Model.InvoiceID, referrer = Model.InvoiceID }, new { @class = "btn btn-default" })
+    <a class="btn btn-primary" onclick="myPrint()">Print Invoice</a>
+    @if (ViewBag.referrer != null)
+    {
+        @Html.ActionLink("Save and Close", "Details", "Customers", new { id = ViewBag.referrer }, new { @class = "btn btn-primary" })
+    }
+    else
+    {
+        @Html.ActionLink("Save and Close", "Index", null, new { @class = "btn btn-primary" })
+    }
+</p>
+
+<script>
+function myPrint() {
+    window.print();
+}
+</script>
+
+

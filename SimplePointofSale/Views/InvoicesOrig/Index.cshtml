@@ -1,0 +1,59 @@
+﻿@model PagedList.IPagedList<SimplePointofSale.Models.Invoice>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Manage Invoices:</h2>
+
+<p><a class="btn btn-primary" href="~/Invoices/Create">Create New Invoice &raquo;</a></p>
+
+@using (Html.BeginForm("Index", "Invoices", FormMethod.Get))
+{
+    <p>
+        Find by name: @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
+        <input type="submit" value="Search" />
+    </p>
+}
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.ActionLink("First Name", "Index", new { sortOrder = ViewBag.FNameSortParm, CurrentFilter = ViewBag.CurrentFilter })
+        </th>
+        <th>
+            @Html.ActionLink("Last Name", "Index", new { sortOrder = ViewBag.LNameSortParm, CurrentFilter = ViewBag.CurrentFilter })
+        </th>
+        <th>
+            @Html.ActionLink("Invoice Date", "Index", new { sortOrder = ViewBag.DateSortParm, CurrentFilter = ViewBag.CurrentFilter })
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Customer.FName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Customer.LName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.InvoiceDate)
+        </td>
+        <td>
+            @Html.ActionLink("Details", "Details", new { id = item.InvoiceID }, new { @class = "btn btn-success" })
+            @Html.ActionLink("Edit", "Edit", new { id = item.InvoiceID }, new { @class = "btn btn-warning" })
+            @Html.ActionLink("Delete", "Delete", new { id = item.InvoiceID }, new { @class = "btn btn-danger" })
+        </td>
+    </tr>
+}
+
+</table>
+<br />
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+@Html.PagedListPager(Model, page => Url.Action("Index",
+    new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))

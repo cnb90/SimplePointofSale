@@ -1,17 +1,17 @@
 ﻿@model SimplePointofSale.Models.InvoiceLine
 
 @{
-    ViewBag.Title = "CreateInvoiceLine";
+    ViewBag.Title = "Add Line To Invoice";
 }
 
-<h2>CreateInvoiceLine</h2>
+<h2>Add Line To Invoice</h2>
 
 @using (Html.BeginForm()) 
 {
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
-        <h4>InvoiceLine</h4>
+        <h4>Select a product, quantity, and price for this invoice line.</h4>
         <hr />
         <input Length="16" class="input-validation-error" data-val="true" data-val-number="The field Invoice Number must be a number." data-val-required="The Invoice Number field is required." id="InvoiceID" name="InvoiceID" type="hidden" value="@ViewBag.InvoiceID" />
         @*@Html.ValidationSummary(true, "", new { @class = "text-danger" })

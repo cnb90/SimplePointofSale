@@ -64,7 +64,7 @@ namespace SimplePointofSale.Controllers
                     customers = customers.OrderBy(s => s.LName);
                     break;
             }
-            int pageSize = 5;
+            int pageSize = 10;
             int pageNumber = (page ?? 1);
             return View(customers.ToPagedList(pageNumber, pageSize));
         }
