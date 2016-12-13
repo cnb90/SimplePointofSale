@@ -8,11 +8,13 @@ namespace SimplePointofSale.Models
     {
         [DisplayName("Customer ID")]
         public int CustomerID { get; set; }
-        // [Required(ErrorMessage ="Please enter a first name.")]
+        [Required(ErrorMessage ="Please enter a first name.")]
         [DisplayName("First Name")]
         public string FName { get; set; }
+        [Required(ErrorMessage = "Please enter a last name.")]
         [DisplayName("Last Name")]
         public string LName { get; set; }
+        [Required(ErrorMessage = "Please enter an email.")]
         [DisplayName("Email Address")]
         public string Email { get; set; }
         [DisplayName("Full Name")]
